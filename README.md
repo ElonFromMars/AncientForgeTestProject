@@ -13,10 +13,10 @@ To reduce coupling, standard C# Actions are used.
 The entire project will start with GameplayBootstrap.cs Further, controllers will be responsible for creating models from configs and linking them to the corresponding view.
 
 ### Subsystems
-- Resources
 - Inventory
 - Crafting
 - Quests
+- Bonuses
 
 ### Installation
-Unity version: [2022.3.5f1](unityhub://2022.3.5f1/9674261d40ee) or higher
+Unity version: [2022.3.5f1](https://unity.com/releases/editor/whats-new/2022.3.5) or higher
