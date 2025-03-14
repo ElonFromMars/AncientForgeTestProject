@@ -17,7 +17,7 @@ namespace Gameplay.Models.Features.Crafting.Services
             _recipeConfigHolder = configHolder.RecipeConfigHolder;
         }
 
-        private void Initialize()
+        public void Initialize()
         {
             _recipes = new List<RecipeModel>();
             
@@ -38,11 +38,6 @@ namespace Gameplay.Models.Features.Crafting.Services
                     baseSuccessChance: recipeConfig.BaseSuccessChance
                 ));
             }
-        }
-
-        public List<RecipeModel> GetAllRecipes()
-        {
-            return _recipes;
         }
 
         public List<RecipeModel> GetRecipesForMachine(MachineId machineId)

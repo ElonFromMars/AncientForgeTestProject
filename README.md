@@ -14,6 +14,7 @@ The entire project will start with GameplayBootstrap.cs Further, controllers wil
 
 ### Subsystems
 - Inventory
+- Machines
 - Crafting
 - Quests
 - Bonuses

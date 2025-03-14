@@ -3,6 +3,7 @@ using AssetManagement.Sprites;
 using Configs.Common;
 using Gameplay.Controllers.Common;
 using Gameplay.Models.Interface;
+using Gameplay.Views.UI.Common;
 using UnityEngine;
 
 namespace Infrastructure
@@ -13,6 +14,7 @@ namespace Infrastructure
         [SerializeField] private UIViewPrefabHolderSO uiViewPrefabHolder;
         [SerializeField] private SpriteHolderSO spriteHolder;
         [SerializeField] private MonoTicker monoTicker;
+        [SerializeField] private HudView hudView;
         
         private GameplaySceneController _gameplaySceneController;
         
@@ -22,7 +24,8 @@ namespace Infrastructure
                 configHolder,
                 uiViewPrefabHolder,
                 spriteHolder,
-                monoTicker
+                monoTicker,
+                hudView
             );
             _gameplaySceneController.Initialize();
         }

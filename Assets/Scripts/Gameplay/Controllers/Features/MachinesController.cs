@@ -3,10 +3,12 @@ using AssetManagement.Configs;
 using AssetManagement.Prefabs;
 using AssetManagement.Sprites;
 using Configs.Features.Crafting;
+using Configs.Features.Inventory;
 using Configs.Features.Machines;
 using Gameplay.Models.Features.Crafting.Services;
 using Gameplay.Models.Features.Machines;
 using Gameplay.Models.Features.Machines.Services;
+using Gameplay.Views.UI.Common;
 using Gameplay.Views.UI.Features.Machines;
 using UnityEngine;
 
@@ -24,22 +26,28 @@ namespace Gameplay.Controllers.Features
         private readonly Dictionary<MachineId, MachineView> _machineViews = new Dictionary<MachineId, MachineView>();
         private MachinesPanelView _machinesPanelView;
         private SpriteHolderSO _spriteHolder;
+        private HudView _hudView;
+        private ItemConfigHolderSO _itemConfigHolder;
 
         public MachinesController(
             MachineService machineService,
             RecipeService recipeService,
             UIViewPrefabHolderSO prefabHolder,
             SpriteHolderSO spriteHolder,
+            ItemConfigHolderSO itemConfigHolder,
             RecipeConfigHolderSO recipeConfigHolder,
-            MachineConfigHolderSO machineConfigHolder
+            MachineConfigHolderSO machineConfigHolder,
+            HudView hudView
             )
         {
+            _itemConfigHolder = itemConfigHolder;
             _recipeService = recipeService;
             _machineService = machineService;
             _prefabHolder = prefabHolder;
             _spriteHolder = spriteHolder;
             _recipeConfigHolder = recipeConfigHolder;
             _machineConfigHolder = machineConfigHolder;
+            _hudView = hudView;
         }
         
         public void Initialize()
@@ -62,11 +70,11 @@ namespace Gameplay.Controllers.Features
             }
         }
 
-        public void CreateMachinesPanelView(Transform parent = null)
+        public void CreateMachinesPanelView()
         {
             var prefab = _prefabHolder.GetPrefab(UIViewId.MachinePanel);
             
-            var panelObject = Object.Instantiate(prefab, parent);
+            var panelObject = Object.Instantiate(prefab, _hudView.transform);
             var panelView = panelObject.GetComponent<MachinesPanelView>();
             
             _machinesPanelView = panelView;
@@ -105,8 +113,6 @@ namespace Gameplay.Controllers.Features
                     CreateMachineView(machine);
                 }
             }
-            
-            _machinesPanelView.ArrangeMachines();
         }
         
         private void OnMachineStatusChanged(MachineModel machine)
@@ -118,7 +124,6 @@ namespace Gameplay.Controllers.Features
                 if (!_machineViews.ContainsKey(machine.Id))
                 {
                     CreateMachineView(machine);
-                    _machinesPanelView.ArrangeMachines();
                 }
                 else
                 {
@@ -169,7 +174,7 @@ namespace Gameplay.Controllers.Features
             var machineConfig = _machineConfigHolder.Get(machine.Id);
             var machineRecipes = _recipeService.GetRecipesForMachine(machine.Id);
             
-            machineView.Construct(_spriteHolder, _recipeConfigHolder, machine, machineConfig, machineRecipes);
+            machineView.Construct(_spriteHolder, _recipeConfigHolder, _prefabHolder, _itemConfigHolder, machine, machineConfig, machineRecipes);
             _machineViews[machine.Id] = machineView;
         }
         

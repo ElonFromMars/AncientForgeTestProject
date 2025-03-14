@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6772bf683a443ada29e7e47d984fcb0, type: 3}
+  m_Name: SpriteHolderSO
+  m_EditorClassIdentifier: 
+  entries:
+  - spriteId: 0
+    sprite: {fileID: 21300000, guid: 60b2eec397701044e95cd1c6cb216db6, type: 3}
+  - spriteId: 1
+    sprite: {fileID: 21300000, guid: ce1e3e0636aa8e34c8bb5042713dd30d, type: 3}
+  - spriteId: 2
+    sprite: {fileID: 21300000, guid: 0e0bf8016a04222458742f238021980c, type: 3}
+  - spriteId: 3
+    sprite: {fileID: 21300000, guid: fa54e263c6e0fc8499e72c5dbaa13454, type: 3}
+  - spriteId: 4
+    sprite: {fileID: 21300000, guid: a8dde124844e7ba4fa98fe2c22bfc516, type: 3}
+  - spriteId: 5
+    sprite: {fileID: 21300000, guid: b23c257becf3f49488766c4e0bffce45, type: 3}
+  - spriteId: 6
+    sprite: {fileID: 21300000, guid: 464c35af3581e0f4d8fb60ab657aa8a4, type: 3}
+  - spriteId: 7
+    sprite: {fileID: 21300000, guid: 6555e70c286c94840a3b856c98e555a7, type: 3}
+  - spriteId: 8
+    sprite: {fileID: 21300000, guid: dd381bb1bed85ed43bd7960ed7a74492, type: 3}
+  - spriteId: 9
+    sprite: {fileID: 21300000, guid: 455dde7951cca3545a9b4aa69b7899c0, type: 3}
+  - spriteId: 10
+    sprite: {fileID: 21300000, guid: cb069e29705e54341abfbf93025443b7, type: 3}
+  - spriteId: 11
+    sprite: {fileID: 21300000, guid: 213ef77f451fb6347b9e7662fcdbb31d, type: 3}
+  - spriteId: 12
+    sprite: {fileID: 21300000, guid: f8db231e202fcd04e9643eb0e386e4e1, type: 3}
+  - spriteId: 13
+    sprite: {fileID: 21300000, guid: 56aafc5105802a94590f8d4b7665a416, type: 3}
+  - spriteId: 14
+    sprite: {fileID: 21300000, guid: dd67f0c3188923d44832188cd010a069, type: 3}
+  - spriteId: 15
+    sprite: {fileID: 21300000, guid: 4b23639f49e0b164c9c0796c79b578d8, type: 3}
+  - spriteId: 16
+    sprite: {fileID: 21300000, guid: 940f9c522a0c3fc4c8bb18a81000904c, type: 3}
+  - spriteId: 17
+    sprite: {fileID: 21300000, guid: d9bebb29aa17bc4478bacd0e323d42fb, type: 3}
+  - spriteId: 18
+    sprite: {fileID: 21300000, guid: 095ccef4ed868ce41b558038fff8bf04, type: 3}
+  - spriteId: 19
+    sprite: {fileID: 21300000, guid: b9103ab5870b9f74690f5b0dbc70fd3c, type: 3}
+  - spriteId: 20
+    sprite: {fileID: 21300000, guid: c9dde4866cc6c9d4bafa264c1e3551e9, type: 3}
+  - spriteId: 21
+    sprite: {fileID: 21300000, guid: 2756093265abb3e4fbf015194893bc32, type: 3}
+  - spriteId: 22
+    sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  - spriteId: 23
+    sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - spriteId: 24
+    sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - spriteId: 25
+    sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  - spriteId: 26
+    sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}

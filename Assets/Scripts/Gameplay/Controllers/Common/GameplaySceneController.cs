@@ -8,6 +8,7 @@ using Gameplay.Models.Features.Inventory.Services;
 using Gameplay.Models.Features.Machines.Services;
 using Gameplay.Models.Features.Quests.Services;
 using Gameplay.Models.Interface;
+using Gameplay.Views.UI.Common;
 
 namespace Gameplay.Controllers.Common
 {
@@ -28,13 +29,17 @@ namespace Gameplay.Controllers.Common
         private InventoryController _inventoryController;
         private MachinesController _machinesController;
         private QuestController _questController;
+        private HudView _hudView;
 
         public GameplaySceneController(
             ConfigHolderSO configHolder,
             UIViewPrefabHolderSO uiViewPrefabHolder,
             SpriteHolderSO spriteHolder,
-            ITicker ticker)
+            ITicker ticker,
+            HudView hudView
+            )
         {
+            _hudView = hudView;
             _configHolder = configHolder;
             _uiViewPrefabHolder = uiViewPrefabHolder;
             _spriteHolder = spriteHolder;
@@ -71,6 +76,7 @@ namespace Gameplay.Controllers.Common
             _craftingService = new CraftingService(_recipeService, _machineService, _inventoryService);
             _bonusService = new BonusService(_configHolder, _inventoryService, _machineService);
             
+            _recipeService.Initialize();
             _inventoryService.InitializeStartingInventory();
             _bonusService.Initialize();
             _questService.Initialize();
@@ -90,7 +96,8 @@ namespace Gameplay.Controllers.Common
                 _inventoryService,
                 _spriteHolder,
                 _uiViewPrefabHolder,
-                _configHolder.ItemConfigHolder
+                _configHolder.ItemConfigHolder,
+                _hudView
             );
             
             _machinesController = new MachinesController(
@@ -98,14 +105,17 @@ namespace Gameplay.Controllers.Common
                 _recipeService,
                 _uiViewPrefabHolder,
                 _spriteHolder,
+                _configHolder.ItemConfigHolder,
                 _configHolder.RecipeConfigHolder,
-                _configHolder.MachineConfigHolder
+                _configHolder.MachineConfigHolder,
+                _hudView
             );
             
             _questController = new QuestController(
                 _questService,
                 _uiViewPrefabHolder,
-                _configHolder.QuestConfigHolder
+                _configHolder.QuestConfigHolder,
+                _hudView
             );
             
             _inventoryController.Initialize();

@@ -5,6 +5,7 @@ using AssetManagement.Sprites;
 using Configs.Features.Inventory;
 using Gameplay.Models.Features.Inventory;
 using Gameplay.Models.Features.Inventory.Services;
+using Gameplay.Views.UI.Common;
 using Gameplay.Views.UI.Features.Inventory;
 using UnityEngine;
 
@@ -19,17 +20,21 @@ namespace Gameplay.Controllers.Features
 
         private readonly Dictionary<ItemId, ItemView> _itemViews = new Dictionary<ItemId, ItemView>();
         private InventoryPanelView _inventoryPanelView;
+        private HudView _hudView;
 
         public InventoryController(
             InventoryService inventoryService,
             SpriteHolderSO spriteHolder,
             UIViewPrefabHolderSO prefabHolder,
-            ItemConfigHolderSO itemConfigHolder)
+            ItemConfigHolderSO itemConfigHolder, 
+            HudView hudView
+            )
         {
             _inventoryService = inventoryService;
             _spriteHolder = spriteHolder;
             _prefabHolder = prefabHolder;
             _itemConfigHolder = itemConfigHolder;
+            _hudView = hudView;
         }
         
         public void Initialize()
@@ -44,11 +49,11 @@ namespace Gameplay.Controllers.Features
             UnsubscribeFromInventoryEvents();
         }
 
-        public void CreateInventoryPanelView(Transform parent = null)
+        public void CreateInventoryPanelView()
         {
             var prefab = _prefabHolder.GetPrefab(UIViewId.InventoryPanelView);
             
-            var panelObject = Object.Instantiate(prefab, parent);
+            var panelObject = Object.Instantiate(prefab, _hudView.transform);
             var panelView = panelObject.GetComponent<InventoryPanelView>();
             
              _inventoryPanelView = panelView;

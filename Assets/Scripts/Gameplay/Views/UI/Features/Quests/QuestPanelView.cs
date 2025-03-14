@@ -1,15 +1,10 @@
 ﻿using System.Collections.Generic;
-using Gameplay.Views;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Gameplay.Views.UI.Features.Quests
 {
     public class QuestPanelView : MonoBehaviour
     {
-        [SerializeField] private GridLayoutGroup gridLayout;
-        [SerializeField] private RectTransform contentRect;
-        
         private readonly List<QuestView> _questViews = new List<QuestView>();
         
         public void AddQuestView(QuestView questView)

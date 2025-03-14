@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
+using AssetManagement.Configs;
+using AssetManagement.Prefabs;
 using AssetManagement.Sprites;
 using Configs.Features.Crafting;
+using Configs.Features.Inventory;
 using Configs.Features.Machines;
 using Gameplay.Models.Features.Crafting;
 using Gameplay.Models.Features.Machines;
+using Gameplay.Views.UI.UIElements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,31 +16,35 @@ namespace Gameplay.Views.UI.Features.Machines
 {
     public class MachineView : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _machineTitleText;
-        [SerializeField] private Image _machineIcon;
-        [SerializeField] private GameObject _craftingPanel;
-        [SerializeField] private Slider _progressBar;
-        [SerializeField] private TextMeshProUGUI _statusText;
-        [SerializeField] private Transform _recipesContainer;
-        [SerializeField] private GameObject _recipeItemPrefab;
+        [SerializeField] private TextMeshProUGUI machineTitleText;
+        [SerializeField] private Image machineIcon;
+        [SerializeField] private ProgressBar progressBar;
+        [SerializeField] private TextMeshProUGUI statusText;
+        [SerializeField] private Transform recipesContainer;
 
         private MachineModel _machineModel;
         private MachineConfigData _machineConfig;
         private List<RecipeModel> _availableRecipes = new List<RecipeModel>();
-        private List<RecipeItemView> _recipeViews = new List<RecipeItemView>();
+        private List<RecipeView> _recipeViews = new List<RecipeView>();
         private SpriteHolderSO _spriteHolder;
         private RecipeConfigHolderSO _recipeConfigHolder;
+        private UIViewPrefabHolderSO _prefabHolder;
+        private ItemConfigHolderSO _itemConfigHolder;
 
         public void Construct(
             SpriteHolderSO spriteHolder,
             RecipeConfigHolderSO recipeConfigHolder,
+            UIViewPrefabHolderSO prefabHolder,
+            ItemConfigHolderSO itemConfigHolder,
             MachineModel machine, 
             MachineConfigData machineConfig, 
             List<RecipeModel> recipes
             )
         {
+            _itemConfigHolder = itemConfigHolder;
             _recipeConfigHolder = recipeConfigHolder;
             _spriteHolder = spriteHolder;
+            _prefabHolder = prefabHolder;
             _machineModel = machine;
             _machineConfig = machineConfig;
             _availableRecipes = recipes;
@@ -49,30 +57,29 @@ namespace Gameplay.Views.UI.Features.Machines
 
         private void SetupUI()
         {
-            if (_machineTitleText != null)
+            if (machineTitleText != null)
             {
-                _machineTitleText.text = _machineConfig.Name;
+                machineTitleText.text = _machineConfig.Name;
             }
            
-            _machineIcon.sprite =  _spriteHolder.GetSprite(_machineConfig.SpriteId);
+            machineIcon.sprite =  _spriteHolder.GetSprite(_machineConfig.SpriteId);
         }
 
         private void CreateRecipeViews()
         {
             ClearRecipeViews();
             
-            if (_recipesContainer == null || _recipeItemPrefab == null)
-                return;
+            var recipeItemPrefab = _prefabHolder.GetPrefab(UIViewId.Recipe);
                 
             foreach (RecipeModel recipe in _availableRecipes)
             {
-                GameObject recipeItemObject = Instantiate(_recipeItemPrefab, _recipesContainer);
-                var recipeItemView = recipeItemObject.GetComponent<RecipeItemView>();
+                GameObject recipeItemObject = Instantiate(recipeItemPrefab, recipesContainer);
+                var recipeItemView = recipeItemObject.GetComponent<RecipeView>();
                 
                 if (recipeItemView != null)
                 {
                     var recipeConfig = _recipeConfigHolder.Get(recipe.RecipeId);
-                    recipeItemView.Construct(recipeConfig, recipe, _machineModel);
+                    recipeItemView.Construct(_prefabHolder, _spriteHolder, _itemConfigHolder, recipeConfig, recipe, _machineModel);
                     recipeItemView.OnRecipeCraftRequested += OnRecipeCraftRequested;
                     _recipeViews.Add(recipeItemView);
                 }
@@ -112,25 +119,25 @@ namespace Gameplay.Views.UI.Features.Machines
 
         private void UpdateProgressBar()
         {
-            if (_progressBar != null)
+            if (progressBar != null)
             {
-                _progressBar.value = _machineModel.GetProgressNormalized();
-                _progressBar.gameObject.SetActive(_machineModel.IsBusy);
+                progressBar.SetProgress(_machineModel.GetProgressNormalized());
+                progressBar.gameObject.SetActive(_machineModel.IsBusy);
             }
         }
 
         private void UpdateStatus()
         {
-            if (_statusText != null)
+            if (statusText != null)
             {
                 if (_machineModel.IsBusy)
                 {
                     float timeRemaining = _machineModel.CraftingDuration - _machineModel.CraftingProgress;
-                    _statusText.text = $"Crafting... {timeRemaining:F1}s";
+                    statusText.text = $"Crafting... {timeRemaining:F1}s";
                 }
                 else
                 {
-                    _statusText.text = "Ready";
+                    statusText.text = "Ready";
                 }
             }
         }
@@ -147,22 +154,22 @@ namespace Gameplay.Views.UI.Features.Machines
         {
             UpdateRecipeViewsInteractability(true);
             
-            if (_statusText != null)
+            if (statusText != null)
             {
-                _statusText.text = success ? "Success!" : "Failed!";
+                statusText.text = success ? "Success!" : "Failed!";
             }
             
             UpdateProgressBar();
             
             // Reset status message after a delay
-            Invoke(nameof(ResetStatus), 2f);
+            Invoke(nameof(ResetStatus), 2f);//TODO rewrite to coroutines or UniTask
         }
 
         private void ResetStatus()
         {
-            if (_statusText != null)
+            if (statusText != null)
             {
-                _statusText.text = "Ready";
+                statusText.text = "Ready";
             }
         }
 

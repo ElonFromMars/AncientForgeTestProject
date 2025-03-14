@@ -6,6 +6,7 @@ using Gameplay.Models.Features.Quests;
 using Gameplay.Models.Features.Quests.Services;
 using Gameplay.Views.UI.Features.Quests;
 using Gameplay.Views;
+using Gameplay.Views.UI.Common;
 using UnityEngine;
 
 namespace Gameplay.Controllers.Features
@@ -18,12 +19,15 @@ namespace Gameplay.Controllers.Features
         
         private readonly Dictionary<QuestId, QuestView> _questViews = new Dictionary<QuestId, QuestView>();
         private QuestPanelView _questPanelView;
-        
-        public QuestController(
-            QuestService questService, 
+        private HudView _hudView;
+
+        public QuestController(QuestService questService,
             UIViewPrefabHolderSO prefabHolder,
-            QuestConfigHolderSO questConfigHolder)
+            QuestConfigHolderSO questConfigHolder, 
+            HudView hudView
+            )
         {
+            _hudView = hudView;
             _questService = questService;
             _prefabHolder = prefabHolder;
             _questConfigHolder = questConfigHolder;
@@ -41,11 +45,11 @@ namespace Gameplay.Controllers.Features
             UnsubscribeFromQuestEvents();
         }
         
-        public void CreateQuestPanelView(Transform parent = null)
+        public void CreateQuestPanelView()
         {
             var prefab = _prefabHolder.GetPrefab(UIViewId.QuestPanel);
             
-            var panelObject = Object.Instantiate(prefab, parent);
+            var panelObject = Object.Instantiate(prefab, _hudView.transform);
             var panelView = panelObject.GetComponent<QuestPanelView>();
             
             _questPanelView = panelView;
