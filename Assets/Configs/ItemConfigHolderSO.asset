@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01cb6995a17293046934f3e3dad641d5, type: 3}
+  m_Name: ItemConfigHolderSO
+  m_EditorClassIdentifier: 
+  items:
+  - itemId: 1
+    itemName: Iron Ore
+    itemType: 0
+    spriteId: 1
+  - itemId: 2
+    itemName: Gold Ore
+    itemType: 0
+    spriteId: 2
+  - itemId: 3
+    itemName: Fire Shard
+    itemType: 0
+    spriteId: 3
+  - itemId: 4
+    itemName: Ember Dust
+    itemType: 0
+    spriteId: 4
+  - itemId: 5
+    itemName: Dragon Scale
+    itemType: 0
+    spriteId: 5
+  - itemId: 6
+    itemName: Iron Ingot
+    itemType: 1
+    spriteId: 6
+  - itemId: 7
+    itemName: Steel Ingot
+    itemType: 1
+    spriteId: 7
+  - itemId: 8
+    itemName: Gold Ingot
+    itemType: 1
+    spriteId: 8
+  - itemId: 9
+    itemName: Flame-Gold Ingot
+    itemType: 1
+    spriteId: 9
+  - itemId: 10
+    itemName: Ember Blade
+    itemType: 1
+    spriteId: 10
+  - itemId: 11
+    itemName: Draconic Shield
+    itemType: 1
+    spriteId: 11
+  - itemId: 12
+    itemName: Radiant Staff
+    itemType: 1
+    spriteId: 12
+  - itemId: 13
+    itemName: Enhanced Ember Blade
+    itemType: 1
+    spriteId: 13
+  - itemId: 14
+    itemName: Enhanced Radiant Staff
+    itemType: 1
+    spriteId: 14
+  - itemId: 15
+    itemName: Draconic Crown
+    itemType: 1
+    spriteId: 15
+  - itemId: 16
+    itemName: Lucky Charm
+    itemType: 0
+    spriteId: 16
+  - itemId: 17
+    itemName: Time Amulet
+    itemType: 0
+    spriteId: 17

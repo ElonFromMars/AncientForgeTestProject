@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f871a97735101448a3ba89ec4640ece, type: 3}
+  m_Name: RecipeConfigHolderSO
+  m_EditorClassIdentifier: 
+  recipes:
+  - id: 1
+    requiredMachine: 0
+    ingredients:
+    - itemId: 1
+      quantity: 1
+    outputItemId: 6
+    baseCraftingTime: 2
+    baseSuccessChance: 100
+  - id: 2
+    requiredMachine: 0
+    ingredients:
+    - itemId: 2
+      quantity: 1
+    outputItemId: 8
+    baseCraftingTime: 3
+    baseSuccessChance: 100
+  - id: 3
+    requiredMachine: 1
+    ingredients:
+    - itemId: 6
+      quantity: 1
+    - itemId: 3
+      quantity: 1
+    outputItemId: 7
+    baseCraftingTime: 4
+    baseSuccessChance: 90
+  - id: 4
+    requiredMachine: 1
+    ingredients:
+    - itemId: 8
+      quantity: 1
+    - itemId: 3
+      quantity: 1
+    outputItemId: 9
+    baseCraftingTime: 5
+    baseSuccessChance: 85
+  - id: 5
+    requiredMachine: 2
+    ingredients:
+    - itemId: 7
+      quantity: 1
+    - itemId: 4
+      quantity: 1
+    outputItemId: 10
+    baseCraftingTime: 5
+    baseSuccessChance: 80
+  - id: 6
+    requiredMachine: 2
+    ingredients:
+    - itemId: 9
+      quantity: 1
+    - itemId: 4
+      quantity: 1
+    outputItemId: 12
+    baseCraftingTime: 6
+    baseSuccessChance: 75
+  - id: 7
+    requiredMachine: 3
+    ingredients:
+    - itemId: 10
+      quantity: 1
+    - itemId: 4
+      quantity: 1
+    outputItemId: 13
+    baseCraftingTime: 4
+    baseSuccessChance: 85
+  - id: 8
+    requiredMachine: 3
+    ingredients:
+    - itemId: 12
+      quantity: 1
+    - itemId: 4
+      quantity: 1
+    outputItemId: 14
+    baseCraftingTime: 5
+    baseSuccessChance: 80
+  - id: 9
+    requiredMachine: 4
+    ingredients:
+    - itemId: 7
+      quantity: 1
+    - itemId: 5
+      quantity: 1
+    outputItemId: 11
+    baseCraftingTime: 6
+    baseSuccessChance: 75
+  - id: 10
+    requiredMachine: 4
+    ingredients:
+    - itemId: 9
+      quantity: 1
+    - itemId: 5
+      quantity: 1
+    outputItemId: 15
+    baseCraftingTime: 7
+    baseSuccessChance: 70

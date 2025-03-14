@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Configs.Features.Quests
 {
-    [CreateAssetMenu(fileName = "QuestConfig", menuName = "Game/Configs/Quest Config")]
+    [CreateAssetMenu(fileName = nameof(QuestConfigHolderSO), menuName = "ScriptableObjects/Configs/" + nameof(QuestConfigHolderSO), order = 0)]
     public class QuestConfigHolderSO : ScriptableObject
     {
         [SerializeField] private List<QuestConfigData> quests;
