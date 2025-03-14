@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bonuses:
   - itemId: 16
-    successRateBonus: 0.1
+    successRateBonus: 10
     craftTimeReduction: 0
   - itemId: 17
     successRateBonus: 0

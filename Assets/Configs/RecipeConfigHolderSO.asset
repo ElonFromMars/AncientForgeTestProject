@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RecipeConfigHolderSO
   m_EditorClassIdentifier: 
   recipes:
-  - id: 1
+  - id: 0
     requiredMachine: 0
     ingredients:
     - itemId: 1
@@ -21,7 +21,7 @@ MonoBehaviour:
     outputItemId: 6
     baseCraftingTime: 2
     baseSuccessChance: 100
-  - id: 2
+  - id: 1
     requiredMachine: 0
     ingredients:
     - itemId: 2
@@ -29,7 +29,7 @@ MonoBehaviour:
     outputItemId: 8
     baseCraftingTime: 3
     baseSuccessChance: 100
-  - id: 3
+  - id: 2
     requiredMachine: 1
     ingredients:
     - itemId: 6
@@ -39,7 +39,7 @@ MonoBehaviour:
     outputItemId: 7
     baseCraftingTime: 4
     baseSuccessChance: 90
-  - id: 4
+  - id: 3
     requiredMachine: 1
     ingredients:
     - itemId: 8
@@ -49,7 +49,7 @@ MonoBehaviour:
     outputItemId: 9
     baseCraftingTime: 5
     baseSuccessChance: 85
-  - id: 5
+  - id: 4
     requiredMachine: 2
     ingredients:
     - itemId: 7
@@ -59,7 +59,7 @@ MonoBehaviour:
     outputItemId: 10
     baseCraftingTime: 5
     baseSuccessChance: 80
-  - id: 6
+  - id: 5
     requiredMachine: 2
     ingredients:
     - itemId: 9
@@ -69,7 +69,7 @@ MonoBehaviour:
     outputItemId: 12
     baseCraftingTime: 6
     baseSuccessChance: 75
-  - id: 7
+  - id: 8
     requiredMachine: 3
     ingredients:
     - itemId: 10
@@ -79,7 +79,7 @@ MonoBehaviour:
     outputItemId: 13
     baseCraftingTime: 4
     baseSuccessChance: 85
-  - id: 8
+  - id: 7
     requiredMachine: 3
     ingredients:
     - itemId: 12
@@ -89,7 +89,7 @@ MonoBehaviour:
     outputItemId: 14
     baseCraftingTime: 5
     baseSuccessChance: 80
-  - id: 9
+  - id: 8
     requiredMachine: 4
     ingredients:
     - itemId: 7
@@ -99,7 +99,7 @@ MonoBehaviour:
     outputItemId: 11
     baseCraftingTime: 6
     baseSuccessChance: 75
-  - id: 10
+  - id: 9
     requiredMachine: 4
     ingredients:
     - itemId: 9

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AssetManagement.Configs;
 using AssetManagement.Prefabs;
 using AssetManagement.Sprites;
@@ -30,6 +31,7 @@ namespace Gameplay.Views.UI.Features.Machines
         private RecipeConfigHolderSO _recipeConfigHolder;
         private UIViewPrefabHolderSO _prefabHolder;
         private ItemConfigHolderSO _itemConfigHolder;
+        public event Action<MachineId, RecipeId> OnRecipeCraftRequested;
 
         public void Construct(
             SpriteHolderSO spriteHolder,
@@ -80,7 +82,7 @@ namespace Gameplay.Views.UI.Features.Machines
                 {
                     var recipeConfig = _recipeConfigHolder.Get(recipe.RecipeId);
                     recipeItemView.Construct(_prefabHolder, _spriteHolder, _itemConfigHolder, recipeConfig, recipe, _machineModel);
-                    recipeItemView.OnRecipeCraftRequested += OnRecipeCraftRequested;
+                    recipeItemView.OnRecipeCraftRequested += HandleRecipeCraftRequested;
                     _recipeViews.Add(recipeItemView);
                 }
             }
@@ -92,7 +94,7 @@ namespace Gameplay.Views.UI.Features.Machines
             {
                 if (recipeView != null)
                 {
-                    recipeView.OnRecipeCraftRequested -= OnRecipeCraftRequested;
+                    recipeView.OnRecipeCraftRequested -= HandleRecipeCraftRequested;
                     Destroy(recipeView.gameObject);
                 }
             }
@@ -100,9 +102,9 @@ namespace Gameplay.Views.UI.Features.Machines
             _recipeViews.Clear();
         }
 
-        private void OnRecipeCraftRequested(RecipeModel recipe)
+        private void HandleRecipeCraftRequested(RecipeModel recipe)
         {
-            
+            OnRecipeCraftRequested?.Invoke(_machineModel.Id, recipe.RecipeId);
         }
 
         public void StartCrafting()

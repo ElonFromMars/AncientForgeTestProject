@@ -20,7 +20,7 @@ namespace Gameplay.Models.Features.Inventory.Services
             
             foreach (var itemConfig in _startingInventoryConfig.StartingItems)
             {
-                if (Random.value <= itemConfig.ChanceToReceive)
+                if (Random.value * 100f <= itemConfig.ChanceToReceive)
                 {
                     int amount = Random.Range(itemConfig.MinAmount, itemConfig.MaxAmount + 1);
                     if (amount > 0)

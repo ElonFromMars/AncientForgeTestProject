@@ -5,6 +5,7 @@ using AssetManagement.Sprites;
 using Configs.Features.Crafting;
 using Configs.Features.Inventory;
 using Configs.Features.Machines;
+using Gameplay.Models.Features.Crafting;
 using Gameplay.Models.Features.Crafting.Services;
 using Gameplay.Models.Features.Machines;
 using Gameplay.Models.Features.Machines.Services;
@@ -17,7 +18,8 @@ namespace Gameplay.Controllers.Features
     public class MachinesController
     {
         private readonly MachineService _machineService;
-        private RecipeService _recipeService;
+        private readonly RecipeService _recipeService;
+        private readonly CraftingService _craftingService;
         
         private readonly UIViewPrefabHolderSO _prefabHolder;
         private readonly RecipeConfigHolderSO _recipeConfigHolder;
@@ -32,6 +34,7 @@ namespace Gameplay.Controllers.Features
         public MachinesController(
             MachineService machineService,
             RecipeService recipeService,
+            CraftingService craftingService,
             UIViewPrefabHolderSO prefabHolder,
             SpriteHolderSO spriteHolder,
             ItemConfigHolderSO itemConfigHolder,
@@ -40,6 +43,7 @@ namespace Gameplay.Controllers.Features
             HudView hudView
             )
         {
+            _craftingService = craftingService;
             _itemConfigHolder = itemConfigHolder;
             _recipeService = recipeService;
             _machineService = machineService;
@@ -140,7 +144,7 @@ namespace Gameplay.Controllers.Features
             }
         }
         
-        private void OnMachineCraftingCompleted(MachineModel machine, bool success)
+        private void OnMachineCraftingCompleted(MachineModel machine, RecipeModel recipeModel, bool success)
         {
             if (_machineViews.TryGetValue(machine.Id, out var machineView))
             {
@@ -176,6 +180,8 @@ namespace Gameplay.Controllers.Features
             
             machineView.Construct(_spriteHolder, _recipeConfigHolder, _prefabHolder, _itemConfigHolder, machine, machineConfig, machineRecipes);
             _machineViews[machine.Id] = machineView;
+            
+            machineView.OnRecipeCraftRequested += HandleRecipeCraftRequested;
         }
         
         private void UpdateMachineView(MachineModel machine)
@@ -184,6 +190,11 @@ namespace Gameplay.Controllers.Features
             {
                 machineView.Refresh();
             }
+        }
+
+        private void HandleRecipeCraftRequested(MachineId machineId, RecipeId recipeId)
+        {
+            _craftingService.StartCrafting(machineId, recipeId);
         }
     }
 }

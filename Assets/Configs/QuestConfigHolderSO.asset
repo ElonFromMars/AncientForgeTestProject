@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: QuestConfigHolderSO
   m_EditorClassIdentifier: 
   quests:
-  - id: 1
+  - id: 0
     name: Smelt Mastery
     description: Craft 5 Iron Ingots
     requiredProgress: 5
-    UnlockedMachineId: 4
-  - id: 2
+    unlockedMachineId: 3
+    trackedItemIds: 06000000
+  - id: 1
     name: Elemental
     description: Craft 2 Ember Blades
     requiredProgress: 2
-    UnlockedMachineId: 5
+    unlockedMachineId: 4
+    trackedItemIds: 0a0000000d000000

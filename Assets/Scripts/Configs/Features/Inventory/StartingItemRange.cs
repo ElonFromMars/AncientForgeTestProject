@@ -9,7 +9,7 @@ namespace Configs.Features.Inventory
         public ItemId ItemId;
         public int MinAmount;
         public int MaxAmount;
-        [Range(0f, 1f)]
-        public float ChanceToReceive = 1f;
+        [Range(0f, 100f)]
+        public float ChanceToReceive = 100f;
     }
 }

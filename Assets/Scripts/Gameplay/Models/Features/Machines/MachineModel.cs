@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay.Models.Common.Services;
 using Gameplay.Models.Features.Crafting;
 using UnityEngine;
 
@@ -6,6 +7,11 @@ namespace Gameplay.Models.Features.Machines
 {
     public class MachineModel
     {
+        private RandomService _randomService;
+        
+        private float _successRateBonus = 0f;
+        private float _craftTimeReduction = 0f;
+        
         public MachineId Id { get; private set; }
         public bool IsUnlocked { get; private set; }
         public bool IsBusy { get; private set; }
@@ -13,17 +19,15 @@ namespace Gameplay.Models.Features.Machines
         public float CraftingDuration { get; private set; }
         public RecipeModel CurrentRecipe { get; private set; }
         public bool HasLuckyCharm { get; private set; }
-        
-        private float _successRateBonus = 0f;
-        private float _craftTimeReduction = 0f;
-        
+
         public event Action<MachineModel> OnCraftingStarted;
-        public event Action<MachineModel, bool> OnCraftingCompleted;
+        public event Action<MachineModel, RecipeModel, bool> OnCraftingCompleted;
         public event Action<MachineModel> OnStatusChanged;
         public event Action<MachineModel> OnProgressUpdated;
         
-        public MachineModel(MachineId id, bool isUnlocked = false)
+        public MachineModel(RandomService randomService, MachineId id, bool isUnlocked = false)
         {
+            _randomService = randomService;
             Id = id;
             IsUnlocked = isUnlocked;
             IsBusy = false;
@@ -74,10 +78,10 @@ namespace Gameplay.Models.Features.Machines
             float successChance = recipe?.BaseSuccessChance ?? 0f;
             if (hasLuckyCharm)
             {
-                successChance = Mathf.Min(1.0f, successChance + _successRateBonus);
+                successChance = Mathf.Min(100f, successChance + _successRateBonus);
             }
             
-            bool isSuccess = UnityEngine.Random.Range(0f, 1f) <= successChance;
+            bool isSuccess = _randomService.GetRandomFloat(0f, 100f) <= successChance;
             
             IsBusy = false;
             CraftingProgress = 0f;
@@ -85,7 +89,7 @@ namespace Gameplay.Models.Features.Machines
             CurrentRecipe = null;
             HasLuckyCharm = false;
             
-            OnCraftingCompleted?.Invoke(this, isSuccess);
+            OnCraftingCompleted?.Invoke(this, recipe, isSuccess);
             OnStatusChanged?.Invoke(this);
         }
         

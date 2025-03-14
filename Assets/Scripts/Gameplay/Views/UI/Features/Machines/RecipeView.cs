@@ -72,7 +72,7 @@ namespace Gameplay.Views.UI.Features.Machines
             
             if (successRateText != null)
             {
-                float successRate = _recipe.BaseSuccessChance * 100f;
+                float successRate = _recipe.BaseSuccessChance;
                 successRateText.text = $"sr: {successRate:0.0}%";
             }
             

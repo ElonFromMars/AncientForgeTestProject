@@ -8,6 +8,7 @@ namespace Configs.Features.Bonuses
     public class BonusConfigData
     {
         [SerializeField] private ItemId itemId;
+        [Range(0f, 100f)]
         [SerializeField] private float successRateBonus;
         [SerializeField] private float craftTimeReduction;
         

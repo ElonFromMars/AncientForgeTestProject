@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Configs.Common;
-using Configs.Features.Crafting;
 using Configs.Features.Machines;
+using Gameplay.Models.Common.Services;
 using UnityEngine;
 
 namespace Gameplay.Models.Features.Machines.Services
@@ -12,8 +12,10 @@ namespace Gameplay.Models.Features.Machines.Services
         private readonly Dictionary<MachineId, MachineModel> _machines;
         private readonly MachineConfigHolderSO _machineConfigHolder;
         
-        private float _totalCraftTimeReduction = 0f;
-        private float _totalSuccessRateBonus = 0f;
+        private float _craftTimeReduction = 0f;
+        private float _successRateBonus = 0f;
+        
+        private RandomService _randomService = new RandomService();
 
         public MachineService(ConfigHolderSO configHolder)
         {
@@ -59,6 +61,7 @@ namespace Gameplay.Models.Features.Machines.Services
             foreach (var machineConfig in _machineConfigHolder.Machines)
             {
                 machines[machineConfig.Id] = new MachineModel(
+                    _randomService,
                     machineConfig.Id,
                     machineConfig.UnlockedByDefault
                 );
@@ -69,45 +72,45 @@ namespace Gameplay.Models.Features.Machines.Services
 
         public void ApplyCraftTimeReduction(float craftTimeReduction)
         {
-            _totalCraftTimeReduction += craftTimeReduction;
+            _craftTimeReduction += craftTimeReduction;
             
             foreach (var machine in _machines.Values)
             {
-                machine.SetTimeBonus(_totalCraftTimeReduction);
+                machine.SetTimeBonus(_craftTimeReduction);
             }
         }
 
         public void RemoveCraftTimeReduction(float craftTimeReduction)
         {
-            _totalCraftTimeReduction -= craftTimeReduction;
+            _craftTimeReduction -= craftTimeReduction;
             
-            _totalCraftTimeReduction = Mathf.Max(0f, _totalCraftTimeReduction);
+            _craftTimeReduction = Mathf.Max(0f, _craftTimeReduction);
             
             foreach (var machine in _machines.Values)
             {
-                machine.SetTimeBonus(_totalCraftTimeReduction);
+                machine.SetTimeBonus(_craftTimeReduction);
             }
         }
 
         public void ApplySuccessRateBonus(float successRateBonus)
         {
-            _totalSuccessRateBonus += successRateBonus;
+            _successRateBonus = successRateBonus;
             
             foreach (var machine in _machines.Values)
             {
-                machine.SetChanceBonus(_totalSuccessRateBonus);
+                machine.SetChanceBonus(_successRateBonus);
             }
         }
 
         public void RemoveSuccessRateBonus(float successRateBonus)
         {
-            _totalSuccessRateBonus -= successRateBonus;
+            _successRateBonus = successRateBonus;
             
-            _totalSuccessRateBonus = Mathf.Max(0f, _totalSuccessRateBonus);
+            _successRateBonus = Mathf.Max(0f, _successRateBonus);
             
             foreach (var machine in _machines.Values)
             {
-                machine.SetChanceBonus(_totalSuccessRateBonus);
+                machine.SetChanceBonus(_successRateBonus);
             }
         }
     }

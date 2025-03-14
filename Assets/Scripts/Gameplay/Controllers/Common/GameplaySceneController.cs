@@ -72,8 +72,8 @@ namespace Gameplay.Controllers.Common
             _inventoryService = new InventoryService(_configHolder);
             _machineService = new MachineService(_configHolder);
             _recipeService = new RecipeService(_configHolder);
-            _questService = new QuestService(_configHolder.QuestConfigHolder);
             _craftingService = new CraftingService(_recipeService, _machineService, _inventoryService);
+            _questService = new QuestService(_configHolder.QuestConfigHolder, _craftingService, _machineService);
             _bonusService = new BonusService(_configHolder, _inventoryService, _machineService);
             
             _recipeService.Initialize();
@@ -103,6 +103,7 @@ namespace Gameplay.Controllers.Common
             _machinesController = new MachinesController(
                 _machineService,
                 _recipeService,
+                _craftingService,
                 _uiViewPrefabHolder,
                 _spriteHolder,
                 _configHolder.ItemConfigHolder,

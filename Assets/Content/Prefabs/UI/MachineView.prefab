@@ -208,8 +208,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190265
-  m_fontColor: {r: 0.7264151, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -226,8 +226,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 14.74
+  m_fontSizeBase: 14.74
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -630,6 +630,18 @@ PrefabInstance:
     - target: {fileID: 2170134608362792104, guid: c104b8d343db64144b44860c92418852, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4534025248165582191, guid: c104b8d343db64144b44860c92418852, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 608.743
+      objectReference: {fileID: 0}
+    - target: {fileID: 4534025248165582191, guid: c104b8d343db64144b44860c92418852, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -2.7594
+      objectReference: {fileID: 0}
+    - target: {fileID: 4534025248165582191, guid: c104b8d343db64144b44860c92418852, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.070500374
       objectReference: {fileID: 0}
     - target: {fileID: 7819625312184396373, guid: c104b8d343db64144b44860c92418852, type: 3}
       propertyPath: m_Name

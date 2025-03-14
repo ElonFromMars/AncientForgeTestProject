@@ -16,28 +16,28 @@ MonoBehaviour:
   - ItemId: 1
     MinAmount: 3
     MaxAmount: 5
-    ChanceToReceive: 1
+    ChanceToReceive: 100
   - ItemId: 2
     MinAmount: 1
     MaxAmount: 3
-    ChanceToReceive: 1
+    ChanceToReceive: 100
   - ItemId: 3
     MinAmount: 0
     MaxAmount: 2
-    ChanceToReceive: 1
+    ChanceToReceive: 100
   - ItemId: 4
     MinAmount: 0
     MaxAmount: 2
-    ChanceToReceive: 1
+    ChanceToReceive: 100
   - ItemId: 5
     MinAmount: 0
     MaxAmount: 1
-    ChanceToReceive: 1
+    ChanceToReceive: 100
   - ItemId: 16
     MinAmount: 1
     MaxAmount: 1
-    ChanceToReceive: 0.25
+    ChanceToReceive: 25
   - ItemId: 17
     MinAmount: 1
     MaxAmount: 1
-    ChanceToReceive: 0.25
+    ChanceToReceive: 25

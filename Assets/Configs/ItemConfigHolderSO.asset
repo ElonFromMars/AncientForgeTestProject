@@ -16,68 +16,68 @@ MonoBehaviour:
   - itemId: 1
     itemName: Iron Ore
     itemType: 0
-    spriteId: 1
+    spriteId: 0
   - itemId: 2
     itemName: Gold Ore
     itemType: 0
-    spriteId: 2
+    spriteId: 1
   - itemId: 3
     itemName: Fire Shard
     itemType: 0
-    spriteId: 3
+    spriteId: 2
   - itemId: 4
     itemName: Ember Dust
     itemType: 0
-    spriteId: 4
+    spriteId: 3
   - itemId: 5
     itemName: Dragon Scale
     itemType: 0
-    spriteId: 5
+    spriteId: 4
   - itemId: 6
     itemName: Iron Ingot
     itemType: 1
-    spriteId: 6
+    spriteId: 5
   - itemId: 7
     itemName: Steel Ingot
     itemType: 1
-    spriteId: 7
+    spriteId: 6
   - itemId: 8
     itemName: Gold Ingot
     itemType: 1
-    spriteId: 8
+    spriteId: 7
   - itemId: 9
     itemName: Flame-Gold Ingot
     itemType: 1
-    spriteId: 9
+    spriteId: 8
   - itemId: 10
     itemName: Ember Blade
     itemType: 1
-    spriteId: 10
+    spriteId: 9
   - itemId: 11
     itemName: Draconic Shield
     itemType: 1
-    spriteId: 11
+    spriteId: 10
   - itemId: 12
     itemName: Radiant Staff
     itemType: 1
-    spriteId: 12
+    spriteId: 11
   - itemId: 13
     itemName: Enhanced Ember Blade
     itemType: 1
-    spriteId: 13
+    spriteId: 12
   - itemId: 14
     itemName: Enhanced Radiant Staff
     itemType: 1
-    spriteId: 14
+    spriteId: 13
   - itemId: 15
     itemName: Draconic Crown
     itemType: 1
-    spriteId: 15
+    spriteId: 14
   - itemId: 16
     itemName: Lucky Charm
     itemType: 0
-    spriteId: 16
+    spriteId: 15
   - itemId: 17
     itemName: Time Amulet
     itemType: 0
-    spriteId: 17
+    spriteId: 16

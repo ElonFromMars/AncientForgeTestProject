@@ -10,9 +10,11 @@ namespace Gameplay.Views.UI.UIElements
         
         public void SetProgress(float progress)
         {
-            float sizeDeltaX = backgroundImage.rectTransform.sizeDelta.x * progress;
-            float sizeDeltaY = contentImage.rectTransform.sizeDelta.y;
-            contentImage.rectTransform.sizeDelta = new Vector2(sizeDeltaX, sizeDeltaY);
+            contentImage.rectTransform.sizeDelta 
+                = new Vector2(backgroundImage.rectTransform.rect.width, contentImage.rectTransform.sizeDelta.y);
+            
+            float clampedProgress = Mathf.Clamp01(progress);
+            contentImage.transform.localScale = new Vector3(clampedProgress, 1, 1);
         }
     }
 }

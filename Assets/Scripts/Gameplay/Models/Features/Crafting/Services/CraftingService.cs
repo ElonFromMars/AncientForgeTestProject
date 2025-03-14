@@ -30,7 +30,7 @@ namespace Gameplay.Models.Features.Crafting.Services
             return recipe != null && _inventoryService.HasItems(recipe.Ingredients);
         }
         
-        public bool StartCrafting(RecipeId recipeId)
+        public bool StartCrafting(MachineId machineId, RecipeId recipeId)
         {
             var recipe = _recipeService.GetRecipe(recipeId);
             if (recipe == null)
@@ -38,7 +38,7 @@ namespace Gameplay.Models.Features.Crafting.Services
                 return false;
             }
             
-            var machine = _machineService.GetMachine(recipe.RequiredMachine);
+            var machine = _machineService.GetMachine(machineId);
             if (machine == null || !machine.IsUnlocked || machine.IsBusy)
             {
                 return false;
@@ -57,14 +57,14 @@ namespace Gameplay.Models.Features.Crafting.Services
             return true;
         }
         
-        private void HandleMachineCraftingCompleted(MachineModel machine, bool isSuccess)
+        private void HandleMachineCraftingCompleted(MachineModel machine, RecipeModel recipeModel, bool isSuccess)
         {
-            if (isSuccess && machine.CurrentRecipe != null)
+            if (isSuccess)
             {
-                _inventoryService.AddItem(machine.CurrentRecipe.OutputItemId);
+                _inventoryService.AddItem(recipeModel.OutputItemId);
             }
             
-            OnCraftingCompleted?.Invoke(machine.CurrentRecipe, isSuccess);
+            OnCraftingCompleted?.Invoke(recipeModel, isSuccess);
         }
         
         public void Update(float deltaTime)

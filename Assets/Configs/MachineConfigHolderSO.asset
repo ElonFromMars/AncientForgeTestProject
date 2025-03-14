@@ -17,24 +17,24 @@ MonoBehaviour:
     name: Smelter
     description: Converts ore into ingots
     unlockedByDefault: 1
-    spriteId: 0
+    spriteId: 17
   - id: 1
     name: Anvil
     description: Forges advanced ingots and alloys
     unlockedByDefault: 1
-    spriteId: 1
+    spriteId: 18
   - id: 2
     name: Enchanter
     description: Infuses items with magical properties
     unlockedByDefault: 1
-    spriteId: 2
+    spriteId: 19
   - id: 3
     name: Rune Carver
     description: Adds advanced runes to enhance items
     unlockedByDefault: 0
-    spriteId: 3
+    spriteId: 20
   - id: 4
     name: Dragon Forge
     description: Handles high-tier forging with Dragon Scale
     unlockedByDefault: 0
-    spriteId: 4
+    spriteId: 21
