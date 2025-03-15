@@ -178,7 +178,17 @@ namespace Gameplay.Controllers.Features
             var machineConfig = _machineConfigHolder.Get(machine.Id);
             var machineRecipes = _recipeService.GetRecipesForMachine(machine.Id);
             
-            machineView.Construct(_spriteHolder, _recipeConfigHolder, _prefabHolder, _itemConfigHolder, machine, machineConfig, machineRecipes);
+            machineView.Construct(
+                _spriteHolder, 
+                _recipeConfigHolder, 
+                _prefabHolder, 
+                _itemConfigHolder, 
+                machine, 
+                machineConfig, 
+                machineRecipes,
+                _craftingService
+            );
+            
             _machineViews[machine.Id] = machineView;
             
             machineView.OnRecipeCraftRequested += HandleRecipeCraftRequested;

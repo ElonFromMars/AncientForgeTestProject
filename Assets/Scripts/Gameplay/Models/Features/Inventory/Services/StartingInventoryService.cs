@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using Configs.Common;
 using Configs.Features.Inventory;
-using UnityEngine;
+using Gameplay.Models.Common.Services;
 
 namespace Gameplay.Models.Features.Inventory.Services
 {
     public class StartingInventoryService
     {
         private readonly StartingInventoryConfigSO _startingInventoryConfig;
+        private RandomService _randomService = new RandomService();
         
         public StartingInventoryService(ConfigHolderSO configHolder)
         {
@@ -20,12 +21,12 @@ namespace Gameplay.Models.Features.Inventory.Services
             
             foreach (var itemConfig in _startingInventoryConfig.StartingItems)
             {
-                if (Random.value * 100f <= itemConfig.ChanceToReceive)
+                if (_randomService.GetRandomFloat(0f, 100f) <= itemConfig.chanceToReceive)
                 {
-                    int amount = Random.Range(itemConfig.MinAmount, itemConfig.MaxAmount + 1);
+                    int amount = _randomService.GetRandomInt(itemConfig.minAmount, itemConfig.maxAmount + 1);
                     if (amount > 0)
                     {
-                        startingInventory[itemConfig.ItemId] = amount;
+                        startingInventory[itemConfig.itemId] = amount;
                     }
                 }
             }

@@ -7,6 +7,7 @@ using Configs.Features.Crafting;
 using Configs.Features.Inventory;
 using Configs.Features.Machines;
 using Gameplay.Models.Features.Crafting;
+using Gameplay.Models.Features.Crafting.Services;
 using Gameplay.Models.Features.Machines;
 using Gameplay.Views.UI.UIElements;
 using TMPro;
@@ -31,6 +32,7 @@ namespace Gameplay.Views.UI.Features.Machines
         private RecipeConfigHolderSO _recipeConfigHolder;
         private UIViewPrefabHolderSO _prefabHolder;
         private ItemConfigHolderSO _itemConfigHolder;
+        private CraftingService _craftingService;
         public event Action<MachineId, RecipeId> OnRecipeCraftRequested;
 
         public void Construct(
@@ -40,7 +42,8 @@ namespace Gameplay.Views.UI.Features.Machines
             ItemConfigHolderSO itemConfigHolder,
             MachineModel machine, 
             MachineConfigData machineConfig, 
-            List<RecipeModel> recipes
+            List<RecipeModel> recipes,
+            CraftingService craftingService
             )
         {
             _itemConfigHolder = itemConfigHolder;
@@ -50,6 +53,7 @@ namespace Gameplay.Views.UI.Features.Machines
             _machineModel = machine;
             _machineConfig = machineConfig;
             _availableRecipes = recipes;
+            _craftingService = craftingService;
 
             SetupUI();
             CreateRecipeViews();
@@ -81,7 +85,15 @@ namespace Gameplay.Views.UI.Features.Machines
                 if (recipeItemView != null)
                 {
                     var recipeConfig = _recipeConfigHolder.Get(recipe.RecipeId);
-                    recipeItemView.Construct(_prefabHolder, _spriteHolder, _itemConfigHolder, recipeConfig, recipe, _machineModel);
+                    recipeItemView.Construct(
+                        _prefabHolder, 
+                        _spriteHolder, 
+                        _itemConfigHolder, 
+                        recipeConfig, 
+                        recipe, 
+                        _machineModel, 
+                        _craftingService
+                    );
                     recipeItemView.OnRecipeCraftRequested += HandleRecipeCraftRequested;
                     _recipeViews.Add(recipeItemView);
                 }

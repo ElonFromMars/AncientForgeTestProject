@@ -1,7 +1,7 @@
 ﻿using System;
 using Gameplay.Models.Common.Services;
+using Gameplay.Models.Common.Utils;
 using Gameplay.Models.Features.Crafting;
-using UnityEngine;
 
 namespace Gameplay.Models.Features.Machines
 {
@@ -9,16 +9,15 @@ namespace Gameplay.Models.Features.Machines
     {
         private RandomService _randomService;
         
-        private float _successRateBonus = 0f;
-        private float _craftTimeReduction = 0f;
-        
         public MachineId Id { get; private set; }
         public bool IsUnlocked { get; private set; }
         public bool IsBusy { get; private set; }
         public float CraftingProgress { get; private set; }
         public float CraftingDuration { get; private set; }
         public RecipeModel CurrentRecipe { get; private set; }
-        public bool HasLuckyCharm { get; private set; }
+
+        public float CraftTimeReduction { get; private set; } = 0f;
+        public float SuccessRateBonus { get; private set; } = 0f;
 
         public event Action<MachineModel> OnCraftingStarted;
         public event Action<MachineModel, RecipeModel, bool> OnCraftingCompleted;
@@ -43,8 +42,7 @@ namespace Gameplay.Models.Features.Machines
         
         public void StartCrafting(RecipeModel recipe)
         {
-            float craftingTime = recipe.BaseCraftingTime;
-            craftingTime = Mathf.Max(0f, craftingTime - _craftTimeReduction);
+            float craftingTime = GetCraftingTimeForRecipe(recipe);
             
             IsBusy = true;
             CraftingProgress = 0f;
@@ -73,13 +71,8 @@ namespace Gameplay.Models.Features.Machines
             if (!IsBusy) return;
             
             var recipe = CurrentRecipe;
-            var hasLuckyCharm = HasLuckyCharm;
-            
-            float successChance = recipe?.BaseSuccessChance ?? 0f;
-            if (hasLuckyCharm)
-            {
-                successChance = Mathf.Min(100f, successChance + _successRateBonus);
-            }
+
+            float successChance = GetSuccessChanceForRecipe(recipe);
             
             bool isSuccess = _randomService.GetRandomFloat(0f, 100f) <= successChance;
             
@@ -87,7 +80,6 @@ namespace Gameplay.Models.Features.Machines
             CraftingProgress = 0f;
             CraftingDuration = 0f;
             CurrentRecipe = null;
-            HasLuckyCharm = false;
             
             OnCraftingCompleted?.Invoke(this, recipe, isSuccess);
             OnStatusChanged?.Invoke(this);
@@ -101,18 +93,27 @@ namespace Gameplay.Models.Features.Machines
         
         public void SetChanceBonus(float successRateBonus)
         {
-            _successRateBonus = successRateBonus;
+            SuccessRateBonus = successRateBonus;
         }
         
         public void SetTimeBonus(float craftTimeReduction)
         {
-            _craftTimeReduction = craftTimeReduction;
+            CraftTimeReduction = craftTimeReduction;
         }
         
-        public void SetLuckyCharm(bool hasLuckyCharm)
+        public float GetSuccessChanceForRecipe(RecipeModel recipe)
         {
-            HasLuckyCharm = hasLuckyCharm;
-            OnStatusChanged?.Invoke(this);
+            if (recipe == null) return 0f;
+            
+            float successChance = recipe.BaseSuccessChance;
+            successChance = MathUtils.Min(100f, successChance + SuccessRateBonus);
+            
+            return successChance;
+        }
+
+        public float GetCraftingTimeForRecipe(RecipeModel recipe)
+        {
+            return MathUtils.Max(0f, recipe.BaseCraftingTime - CraftTimeReduction);
         }
     }
 }

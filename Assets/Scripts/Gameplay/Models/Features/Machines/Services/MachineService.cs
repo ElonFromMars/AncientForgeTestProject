@@ -3,7 +3,7 @@ using System.Linq;
 using Configs.Common;
 using Configs.Features.Machines;
 using Gameplay.Models.Common.Services;
-using UnityEngine;
+using Gameplay.Models.Common.Utils;
 
 namespace Gameplay.Models.Features.Machines.Services
 {
@@ -84,7 +84,7 @@ namespace Gameplay.Models.Features.Machines.Services
         {
             _craftTimeReduction -= craftTimeReduction;
             
-            _craftTimeReduction = Mathf.Max(0f, _craftTimeReduction);
+            _craftTimeReduction = MathUtils.Max(0f, _craftTimeReduction);
             
             foreach (var machine in _machines.Values)
             {
@@ -106,7 +106,7 @@ namespace Gameplay.Models.Features.Machines.Services
         {
             _successRateBonus = successRateBonus;
             
-            _successRateBonus = Mathf.Max(0f, _successRateBonus);
+            _successRateBonus = MathUtils.Max(0f, _successRateBonus);
             
             foreach (var machine in _machines.Values)
             {

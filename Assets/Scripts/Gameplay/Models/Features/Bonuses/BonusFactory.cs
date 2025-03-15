@@ -1,5 +1,4 @@
 using Configs.Features.Bonuses;
-using Gameplay.Models.Features.Crafting.Services;
 using Gameplay.Models.Features.Inventory;
 using Gameplay.Models.Features.Machines.Services;
 

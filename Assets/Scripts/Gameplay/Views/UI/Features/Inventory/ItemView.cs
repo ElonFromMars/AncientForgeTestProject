@@ -9,6 +9,7 @@ namespace Gameplay.Views.UI.Features.Inventory
     {
         [SerializeField] private Image itemIcon;
         [SerializeField] private TextMeshProUGUI quantityText;
+        [SerializeField] private RectTransform quantityContainer;
         
         private ItemId _itemId;
         private int _quantity;
@@ -25,7 +26,16 @@ namespace Gameplay.Views.UI.Features.Inventory
         public void UpdateQuantity(int quantity)
         {
             _quantity = quantity;
-            quantityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
+            if (quantity > 1)
+            {
+                quantityText.text = quantity.ToString();
+                quantityContainer?.gameObject.SetActive(true);
+            }
+            else
+            {
+                quantityText.text = string.Empty;
+                quantityContainer?.gameObject.SetActive(false);
+            }
         }
     }
 }

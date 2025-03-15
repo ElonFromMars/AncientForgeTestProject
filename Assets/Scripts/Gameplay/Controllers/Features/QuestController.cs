@@ -77,8 +77,6 @@ namespace Gameplay.Controllers.Features
             {
                 CreateOrUpdateQuestView(quest);
             }
-            
-            _questPanelView.ArrangeQuests();
         }
         
         private void OnQuestProgressUpdated(QuestId questId, int current, int required)
@@ -95,7 +93,6 @@ namespace Gameplay.Controllers.Features
                 else
                 {
                     CreateOrUpdateQuestView(quest);
-                    _questPanelView.ArrangeQuests();
                 }
             }
         }

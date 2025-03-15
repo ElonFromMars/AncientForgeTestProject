@@ -6,21 +6,21 @@ using AssetManagement.Sprites;
 using Configs.Features.Crafting;
 using Configs.Features.Inventory;
 using Gameplay.Models.Features.Crafting;
+using Gameplay.Models.Features.Crafting.Services;
 using Gameplay.Models.Features.Machines;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Gameplay.Views.UI.Features.Machines
 {
     public class RecipeView : MonoBehaviour
     {
-        [FormerlySerializedAs("_recipeTitleText")] [SerializeField] private TextMeshProUGUI recipeTitleText;
-        [FormerlySerializedAs("_craftButton")] [SerializeField] private Button craftButton;
-        [FormerlySerializedAs("_ingredientsContainer")] [SerializeField] private Transform ingredientsContainer;
-        [FormerlySerializedAs("_successRateText")] [SerializeField] private TextMeshProUGUI successRateText;
-        [FormerlySerializedAs("_craftingTimeText")] [SerializeField] private TextMeshProUGUI craftingTimeText;
+        [SerializeField] private TextMeshProUGUI recipeTitleText;
+        [SerializeField] private Button craftButton;
+        [SerializeField] private Transform ingredientsContainer;
+        [SerializeField] private TextMeshProUGUI successRateText;
+        [SerializeField] private TextMeshProUGUI craftingTimeText;
 
         private RecipeConfigData _recipeConfig;
         private RecipeModel _recipe;
@@ -29,6 +29,7 @@ namespace Gameplay.Views.UI.Features.Machines
         private UIViewPrefabHolderSO _prefabHolder;
         private SpriteHolderSO _spriteHolder;
         private ItemConfigHolderSO _itemConfigHolder;
+        private CraftingService _craftingService;
 
         public event Action<RecipeModel> OnRecipeCraftRequested;
 
@@ -38,7 +39,8 @@ namespace Gameplay.Views.UI.Features.Machines
             ItemConfigHolderSO itemConfigHolder,
             RecipeConfigData recipeConfig, 
             RecipeModel recipe, 
-            MachineModel machine
+            MachineModel machine,
+            CraftingService craftingService
             )
         {
             _itemConfigHolder = itemConfigHolder;
@@ -47,7 +49,8 @@ namespace Gameplay.Views.UI.Features.Machines
             _recipeConfig = recipeConfig;
             _recipe = recipe;
             _machine = machine;
-            
+            _craftingService = craftingService;
+
             SetupUI();
             CreateIngredientItems();
             SetupListeners();
@@ -72,13 +75,24 @@ namespace Gameplay.Views.UI.Features.Machines
             
             if (successRateText != null)
             {
-                float successRate = _recipe.BaseSuccessChance;
-                successRateText.text = $"sr: {successRate:0.0}%";
+                float successRate =_machine.GetSuccessChanceForRecipe(_recipe);
+                string successRateBonusText = string.Empty;
+                if (_machine.SuccessRateBonus > 0 && _recipe.BaseSuccessChance < 100f)
+                {
+                    successRateBonusText = $"\n(+{_machine.SuccessRateBonus:0.0}%)";
+                }
+                successRateText.text = $"sr: {successRate:0.0}%{successRateBonusText}";
             }
             
             if (craftingTimeText != null)
             {
-                craftingTimeText.text = $"t: {_recipe.BaseCraftingTime}s";
+                float recipeBaseCraftingTime = _machine.GetCraftingTimeForRecipe(_recipe);
+                string craftingTimeBonusText = string.Empty;
+                if(_machine.CraftTimeReduction > 0)
+                {
+                    craftingTimeBonusText = $"\n(-{_machine.CraftTimeReduction:0.0}s)";
+                }
+                craftingTimeText.text = $"t: {recipeBaseCraftingTime:0.0}s{craftingTimeBonusText}";
             }
             
             SetInteractable(!_machine.IsBusy);
@@ -96,7 +110,7 @@ namespace Gameplay.Views.UI.Features.Machines
                 var spriteIdIt = _itemConfigHolder.GetItemConfig(input.ItemId).SpriteId;
                 ingredientItem.DesiredItemIcon.sprite = _spriteHolder.GetSprite(spriteIdIt);
                 
-                ingredientItem.Text.text = $"{input.ItemId} x{input.Quantity}";
+                ingredientItem.Text.text = $"{input.ItemId}x{input.Quantity}";
                 
                 _ingredientItems.Add(ingredientItem);
             }
@@ -108,7 +122,7 @@ namespace Gameplay.Views.UI.Features.Machines
             var outputText = outputItem.GetComponentInChildren<TextMeshProUGUI>();
             if (outputText != null)
             {
-                outputText.text = $"→ {_recipe.OutputItemId}";
+                outputText.text = $"→{_recipe.OutputItemId}";
             }
             _ingredientItems.Add(outputItem);
         }
@@ -137,10 +151,7 @@ namespace Gameplay.Views.UI.Features.Machines
 
         public void SetInteractable(bool interactable)
         {
-            if (craftButton != null)
-            {
-                craftButton.interactable = interactable;
-            }
+            craftButton.interactable = interactable && _craftingService.CanCraftRecipe(_recipe);
         }
     }
 }

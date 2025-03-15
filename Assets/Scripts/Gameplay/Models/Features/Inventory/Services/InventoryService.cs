@@ -38,7 +38,6 @@ namespace Gameplay.Models.Features.Inventory.Services
             remove => _inventoryModel.OnInventoryChanged -= value;
         }
         
-        // Delegate methods to the model
         public int GetItemQuantity(ItemId itemId) => _inventoryModel.GetItemQuantity(itemId);
         
         public bool HasItem(ItemId itemId, int quantity = 1) => _inventoryModel.HasItem(itemId, quantity);

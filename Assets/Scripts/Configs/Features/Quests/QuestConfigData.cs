@@ -1,5 +1,4 @@
-﻿using Gameplay.Models.Features.Crafting;
-using Gameplay.Models.Features.Machines;
+﻿using Gameplay.Models.Features.Machines;
 using Gameplay.Models.Features.Quests;
 using System.Collections.Generic;
 using Gameplay.Models.Features.Inventory;
